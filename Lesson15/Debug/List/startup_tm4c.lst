@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ANSI C/C++ Compiler V7.70.2.11706/W32 for ARM       11/Jan/2018  15:11:46
+# IAR ANSI C/C++ Compiler V7.70.2.11706/W32 for ARM       11/Jan/2018  16:58:25
 # Copyright 1999-2016 IAR Systems AB.
 #
 #    Cpu mode     =  thumb
@@ -23,23 +23,118 @@
 
 C:\Embedded_Program\Lesson15\startup_tm4c.c
       1          /*Startup code for TM4c MCU*/
-      2          extern int CSTACK$$Limit;
-      3          const int __vector_table[] @ ".intvec"={
-      4          (int)&CSTACK$$Limit
-      5          ,0x9
-      6          };
+      2          #include "tm4c_cmsis.h"
+      3          extern int CSTACK$$Limit;
+      4          void __iar_program_start(void);
+      5          void Unused_Handler(void);
+      6          const int __vector_table[] @ ".intvec"={
+      7           (int)&CSTACK$$Limit
+      8          ,(int)&__iar_program_start
+      9          ,(int)&NMI_Handler
+     10          ,(int)&HardFault_Handler
+     11          ,(int)&MemManage_Handler
+     12          ,(int)&BusFault_Handler
+     13          ,(int)&UsageFault_Handler
+     14          ,0   /*Reserved*/
+     15          ,0   /*Reserved*/
+     16          ,0   /*Reserved*/
+     17          ,0   /*Reserved*/
+     18          ,(int)&SVC_Handler        /*Non Fault Handler*/
+     19          ,(int)&DebugMon_Handler   /*Non Fault Handler*/
+     20          ,0   /*Reserved*/
+     21          ,(int)&PendSV_Handler     /*Non Fault Handler*/
+     22          ,(int)&SysTick_Handler    /*Non Fault Handler*/
+     23          };
+     24          
+     25          __stackless void HardFault_Handler(void)
+     26          {
+     27            assert_failed ("HardFault", __LINE__);
+     28          }
+     29          __stackless void NMI_Handler(void)
+     30          {
+     31            assert_failed ("NMI", __LINE__);
+     32          }
+     33          __stackless void MemManage_Handler(void)
+     34          {
+     35            assert_failed ("MemManage", __LINE__);
+     36          }
+     37          __stackless void BusFault_Handler(void)
+     38          {
+     39            assert_failed ("BusFault", __LINE__);
+     40          }
+     41          __stackless void UsageFault_Handler(void)
+     42          {
+     43            assert_failed ("UsageFault", __LINE__);
+     44          }
+     45          __stackless void Unused_Handler(void)
+     46          {
+     47            assert_failed ("unused", __LINE__);
+     48          }
+     49          
+     50          /*if the handler is not used*/
+     51          #pragma weak SVC_Handler       = Unused_Handler
+     52          #pragma weak DebugMon_Handler       = Unused_Handler
+     53          #pragma weak PendSV_Handler       = Unused_Handler
+     54          #pragma weak SysTick_Handler       = Unused_Handler
+     55          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   BusFault_Handler
+         0   -> assert_failed
+       0   DebugMon_Handler
+       0   HardFault_Handler
+         0   -> assert_failed
+       0   MemManage_Handler
+         0   -> assert_failed
+       0   NMI_Handler
+         0   -> assert_failed
+       0   PendSV_Handler
+       0   SVC_Handler
+       0   SysTick_Handler
+       0   Unused_Handler
+         0   -> assert_failed
+       0   UsageFault_Handler
+         0   -> assert_failed
 
 
    Section sizes:
 
    Bytes  Function/Label
    -----  --------------
-       8  __vector_table
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+      12  ?_0
+       4  ?_1
+      12  ?_2
+      12  ?_3
+      12  ?_4
+       8  ?_5
+      10  BusFault_Handler
+      10  HardFault_Handler
+      10  MemManage_Handler
+      10  NMI_Handler
+      10  PendSV_Handler
+          SysTick_Handler
+          SVC_Handler
+          DebugMon_Handler
+          Unused_Handler
+      10  UsageFault_Handler
+      64  __vector_table
 
  
- 8 bytes in section .intvec
+ 64 bytes in section .intvec
+ 60 bytes in section .rodata
+ 84 bytes in section .text
  
- 8 bytes of CONST memory
+  84 bytes of CODE  memory
+ 124 bytes of CONST memory
 
 Errors: none
 Warnings: none
