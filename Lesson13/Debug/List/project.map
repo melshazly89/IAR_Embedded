@@ -1,0 +1,177 @@
+###############################################################################
+#
+# IAR ELF Linker V7.70.2.11706/W32 for ARM                11/Jan/2018  15:04:51
+# Copyright 2007-2016 IAR Systems AB.
+#
+#    Output file  =  C:\Embedded_Program\Lesson13\Debug\Exe\Project.out
+#    Map file     =  C:\Embedded_Program\Lesson13\Debug\List\Project.map
+#    Command line =  
+#        C:\Embedded_Program\Lesson13\Debug\Obj\delay.o
+#        C:\Embedded_Program\Lesson13\Debug\Obj\main.o -o
+#        C:\Embedded_Program\Lesson13\Debug\Exe\Project.out --redirect
+#        _Printf=_PrintfFull --redirect _Scanf=_ScanfFull --map
+#        C:\Embedded_Program\Lesson13\Debug\List\Project.map --config
+#        C:\Embedded_Program\Lesson13\Project.icf --semihosting --entry
+#        __iar_program_start --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x00000000 { ro section .intvec };
+"P1":  place in [from 0x00000000 to 0x0003ffff] { ro };
+"P2":  place in [from 0x20000000 to 0x20007fff] { rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A0":                                       0x40
+  .intvec            ro code  0x00000000    0x40  vector_table_M.o [5]
+                            - 0x00000040    0x40
+
+"P1":                                      0x184
+  .text              ro code  0x00000040    0x90  main.o [1]
+  .text              ro code  0x000000d0     0xc  delay.o [1]
+  .text              ro code  0x000000dc    0x2c  copy_init3.o [5]
+  .text              ro code  0x00000108    0x28  data_init.o [5]
+  .text              ro code  0x00000130    0x22  fpinit_M.o [4]
+  .iar.init_table    const    0x00000154    0x14  - Linker created -
+  .text              ro code  0x00000168     0x2  vector_table_M.o [5]
+  .text              ro code  0x0000016c    0x1a  cmain.o [5]
+  .text              ro code  0x00000186     0x4  low_level_init.o [3]
+  .text              ro code  0x0000018a     0x4  exit.o [3]
+  .text              ro code  0x00000190     0xa  cexit.o [5]
+  .text              ro code  0x0000019c    0x14  exit.o [6]
+  .text              ro code  0x000001b0     0xc  cstartup_M.o [5]
+  Initializer bytes  const    0x000001bc     0x8  <for P2-1>
+  .rodata            const    0x000001c4     0x0  copy_init3.o [5]
+                            - 0x000001c4   0x184
+
+"P2", part 1 of 2:                           0x8
+  P2-1                        0x20000000     0x8  <Init block>
+    .data            inited   0x20000000     0x4  main.o [1]
+    .bss             inited   0x20000004     0x4  main.o [1]
+                            - 0x20000008     0x8
+
+"P2", part 2 of 2:                        0x1000
+  CSTACK                      0x20000008  0x1000  <Block>
+    CSTACK           uninit   0x20000008  0x1000  <Block tail>
+                            - 0x20001008  0x1000
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Copy (__iar_copy_init3)
+    1 source range, total size 0x8:
+          0x000001bc   0x8
+    1 destination range, total size 0x8:
+          0x20000000   0x8
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module            ro code  ro data  rw data
+    ------            -------  -------  -------
+C:\Embedded_Program\Lesson13\Debug\Obj: [1]
+    delay.o                12
+    main.o                144        8        8
+    -------------------------------------------
+    Total:                156        8        8
+
+command line: [2]
+    -------------------------------------------
+    Total:
+
+dl7M_tln.a: [3]
+    exit.o                  4
+    low_level_init.o        4
+    -------------------------------------------
+    Total:                  8
+
+m7M_tls.a: [4]
+    fpinit_M.o             34
+    -------------------------------------------
+    Total:                 34
+
+rt7M_tl.a: [5]
+    cexit.o                10
+    cmain.o                26
+    copy_init3.o           44
+    cstartup_M.o           12
+    data_init.o            40
+    vector_table_M.o       66
+    -------------------------------------------
+    Total:                198
+
+shb_l.a: [6]
+    exit.o                 20
+    -------------------------------------------
+    Total:                 20
+
+    Gaps                    6        2
+    Linker created                  20    4 096
+-----------------------------------------------
+    Grand Total:          422       30    4 104
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address  Size  Type      Object
+-----                      -------  ----  ----      ------
+.iar.init_table$$Base   0x00000154         --   Gb  - Linker created -
+.iar.init_table$$Limit  0x00000168         --   Gb  - Linker created -
+?main                   0x0000016d        Code  Gb  cmain.o [5]
+CSTACK$$Base            0x20000008         --   Gb  - Linker created -
+CSTACK$$Limit           0x20001008         --   Gb  - Linker created -
+Region$$Table$$Base     0x00000154         --   Gb  - Linker created -
+Region$$Table$$Limit    0x00000168         --   Gb  - Linker created -
+__cmain                 0x0000016d        Code  Gb  cmain.o [5]
+__exit                  0x0000019d  0x14  Code  Gb  exit.o [6]
+__iar_copy_init3        0x000000dd  0x2c  Code  Gb  copy_init3.o [5]
+__iar_data_init3        0x00000109  0x28  Code  Gb  data_init.o [5]
+__iar_init_vfp          0x00000131        Code  Gb  fpinit_M.o [4]
+__iar_program_start     0x000001b1        Code  Gb  cstartup_M.o [5]
+__low_level_init        0x00000187   0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x00000000        Data  Gb  vector_table_M.o [5]
+_call_main              0x00000179        Code  Gb  cmain.o [5]
+_exit                   0x00000191        Code  Gb  cexit.o [5]
+_main                   0x00000183        Code  Gb  cmain.o [5]
+delay                   0x000000d1   0xc  Code  Gb  delay.o [1]
+exit                    0x0000018b   0x4  Code  Gb  exit.o [3]
+main                    0x00000041  0x90  Code  Gb  main.o [1]
+p1                      0x20000000   0x4  Data  Gb  main.o [1]
+p2                      0x20000004   0x4  Data  Gb  main.o [1]
+
+
+[1] = C:\Embedded_Program\Lesson13\Debug\Obj
+[2] = command line
+[3] = dl7M_tln.a
+[4] = m7M_tls.a
+[5] = rt7M_tl.a
+[6] = shb_l.a
+
+    422 bytes of readonly  code memory
+     30 bytes of readonly  data memory
+  4 104 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
