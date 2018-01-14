@@ -1,0 +1,74 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.70.2.11706/W32 for ARM       14/Jan/2018  11:42:36
+# Copyright 1999-2016 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  C:\Embedded_Program\Lesson17\main.c
+#    Command line =  
+#        C:\Embedded_Program\Lesson17\main.c -lc
+#        C:\Embedded_Program\Lesson17\Debug\List -o
+#        C:\Embedded_Program\Lesson17\Debug\Obj --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp
+#        --dlib_config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\INC\c\DLib_Config_Normal.h" -Ol -I "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench 7.5\arm\CMSIS\Include\"
+#    Locale       =  English_United States.1252
+#    List file    =  C:\Embedded_Program\Lesson17\Debug\List\main.lst
+#    Object file  =  C:\Embedded_Program\Lesson17\Debug\Obj\main.o
+#
+###############################################################################
+
+C:\Embedded_Program\Lesson17\main.c
+      1          #include <stdint.h>
+      2          
+      3          #include "tm4c_cmsis.h"
+      4          #include "BSP.h"
+      5          
+      6          #define LED_RED   (1U << 1)
+      7          #define LED_BLUE  (1U << 2)
+      8          #define LED_GREEN (1U << 3)
+      9          #define CLK_SRC   (1U << 2)
+     10          #define INTEN     (1U << 1)
+     11          #define ENABLE    (1U)
+     12          #define SYS_CLOCK_HZ 16000000UL
+     13          
+     14          int main() {
+     15              SYSCTL->RCGC2 |= (1U << 5);  /* enable clock for GPIOF */
+     16              SYSCTL->GPIOHSCTL |= (1U << 5); /* enable AHB for GPIOF */
+     17              GPIOF_HS->DIR |= (LED_RED | LED_BLUE | LED_GREEN);
+     18              GPIOF_HS->DEN |= (LED_RED | LED_BLUE | LED_GREEN);
+     19              /*SysTick Configuration*/
+     20              SysTick->LOAD   = SYS_CLOCK_HZ/2U-1U; 
+     21              SysTick->VAL   = 0UL; 
+     22              SysTick->CTRL|=CLK_SRC|INTEN|ENABLE;
+     23              __enable_interrupt();   /*Clear PRIMASK bit*/
+     24              while (1) {  
+     25                GPIOF_HS->DATA_Bits[LED_GREEN]= LED_GREEN;
+     26                GPIOF_HS->DATA_Bits[LED_GREEN]= 0U;
+     27              }
+     28          
+     29          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   main
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     124  main
+
+ 
+ 124 bytes in section .text
+ 
+ 124 bytes of CODE memory
+
+Errors: none
+Warnings: none
